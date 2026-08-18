@@ -17,7 +17,7 @@ handler_router = Router()
 
 giveaway: Gieveaway | None = None
 
-@handler_router.message(F.text.startswith("/giveaway"))
+@handler_router.message(F.text.startswith("/start_giveaway"))
 async def start_giveaway(message: Message, bot: Bot):
     global giveaway
     parts = message.text.split(maxsplit=1)
