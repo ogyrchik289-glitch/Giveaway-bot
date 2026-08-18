@@ -17,12 +17,12 @@ handler_router = Router()
 
 giveaway: Gieveaway | None = None
 
-@handler_router.message(F.text.startswith("giveaway"))
+@handler_router.message(F.text.startswith("/giveaway"))
 async def start_giveaway(message: Message, bot: Bot):
     global giveaway
     parts = message.text.split(maxsplit=1)
     if len(parts) < 2:
-        await message.asnwer("Пожалуйста введите название розыгрыша: /giveaway название розыгрыша")
+        await message.answer("Пожалуйста введите название розыгрыша: /giveaway название розыгрыша")
         return
     else:
         text = escape(parts[1])
@@ -33,7 +33,7 @@ async def start_giveaway(message: Message, bot: Bot):
 Для участия нажмите на кнопку ниже⬇️
 
 Итоги через 25 минут!""", reply_markup=InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text=f"Присоедениться к розыгрышу✅", callback_data="add_p")
+        InlineKeyboardButton(text=f"Присоединиться к розыгрышу✅", callback_data="add_p")
     ]]))
         giveaway = Gieveaway(sent.chat.id, sent.message_id, text)
         giveaway.task = asyncio.create_task(finish_giveaway(giveaway, bot, 1500))    
