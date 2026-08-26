@@ -17,11 +17,22 @@ class Gieveaway:
         else:
             return False
         
-    def draw_winner(self):
+    def draw_winner(self) -> list:
         self.is_active = False
-        return random.choice(list(self.participants))
-    
-    
+        if len(self.participants) >= 3:
+            first = random.choice(list(self.participants))
+            self.participants.remove(first)
+            second = random.choice(list(self.participants))
+            self.participants.remove(second)
+            third = random.choice(list(self.participants))
+            return [first, second, third]
+        elif len(self.participants) == 2:
+            first = random.choice(list(self.participants))
+            self.participants.remove(first)
+            second = random.choice(list(self.participants))
+            return [first, second]
+        else:
+            return [random.choice(list(self.participants))]    
         
         
         

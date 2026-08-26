@@ -61,13 +61,26 @@ async def finish_giveaway(giveaway: Gieveaway, bot: Bot, delay: int | None = Non
         giveaway.task.cancel()
     if not giveaway.participants:
             await bot.edit_message_text(text="""Розыгрыш завершен❗️
-        Так как никто из участников группы не принял участие, победителя нет🔴""", chat_id=giveaway.chat_id, message_id=giveaway.message_id, reply_markup=None)
+        Так как никто из участников группы не принял участие, победителей нет🔴""", chat_id=giveaway.chat_id, message_id=giveaway.message_id, reply_markup=None)
             giveaway.is_active = False
             return
-    winner = giveaway.draw_winner()
-    winner_text = f"""Розыгрыш завершен❗️
-    Победителем стал: <a href='tg://user?id={winner}'>участник</a>🏆
-    Поздравляем🎉"""
+    winners = giveaway.draw_winner()
+    if len(winners) == 3:
+        winner_text = f"""Розыгрыш завершен❗️
+Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
+Второе место 🥈: <a href='tg://user?id={winners[1]}'>участник</a>🏆
+Третье место 🥉: <a href='tg://user?id={winners[2]}'>участник</a>🏆
+Поздравляем🎉"""
+    
+    elif len(winners) == 2:
+        winner_text = f"""Розыгрыш завершен❗️
+        Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
+        Второе место 🥈: <a href='tg://user?id={winners[1]}'>участник</a>🏆
+        Поздравляем🎉"""
+    else:
+        winner_text = f"""Розыгрыш завершен❗️
+                Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
+                Поздравляем🎉"""
     await bot.edit_message_text(text=winner_text, chat_id=giveaway.chat_id, message_id=giveaway.message_id, reply_markup=None)
         
 @handler_router.message(Command("draw"))
