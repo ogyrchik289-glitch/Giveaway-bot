@@ -74,13 +74,13 @@ async def finish_giveaway(giveaway: Gieveaway, bot: Bot, delay: int | None = Non
     
     elif len(winners) == 2:
         winner_text = f"""Розыгрыш завершен❗️
-        Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
-        Второе место 🥈: <a href='tg://user?id={winners[1]}'>участник</a>🏆
-        Поздравляем🎉"""
+Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
+Второе место 🥈: <a href='tg://user?id={winners[1]}'>участник</a>🏆
+Поздравляем🎉"""
     else:
         winner_text = f"""Розыгрыш завершен❗️
-                Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
-                Поздравляем🎉"""
+Первое место 🥇: <a href='tg://user?id={winners[0]}'>участник</a>🏆
+Поздравляем🎉"""
     await bot.edit_message_text(text=winner_text, chat_id=giveaway.chat_id, message_id=giveaway.message_id, reply_markup=None)
         
 @handler_router.message(Command("draw"))
